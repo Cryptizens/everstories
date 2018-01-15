@@ -16,6 +16,16 @@
       {{ lon }}
       <button @click="createMemory()">Save memory</button>
     </div>
+
+    <img style="height: 200px" src="./assets/background.jpg">
+    <div style="height: 200px">
+      <v-map :zoom=13 :center="[47.413220, -1.219482]">
+        <v-tilelayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"></v-tilelayer>
+        <v-marker :lat-lng="[47.413220, -1.219482]" :title="title">
+          <v-popup :content="text"></v-popup>
+        </v-marker>
+      </v-map>
+    </div>
     <div>
       <h1>All memories</h1>
       {{ memories }}
@@ -34,7 +44,9 @@ export default {
       memories: [],
       story: 'Your first story...',
       lat: 0,
-      lon: 0
+      lon: 0,
+      text: "Lol",
+      title: "HEYHEY"
     }
   },
   methods: {
@@ -127,6 +139,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~leaflet/dist/leaflet.css";
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
