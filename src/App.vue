@@ -39,17 +39,23 @@ export default {
   },
   methods: {
     // Called at page load, to retrieve all existing memories from the Blockchain.
+    // We use an infura node instead of an in-browser wallet, so that all users
+    // can see the full list of memories, even if they're not tech-savvy.
     // Initiates the recursive call to retrieveMemoryAtIndex, since Solidity does
     // not allow us to retrieve all elements of the contract array at one, so
     // we must iterate instead
     populateMemories() {
-      this.retrieveMemoryAtIndex(0, this.memorial());
+      var remoteWeb3 = new Web3(
+          new Web3.providers.HttpProvider('https://rinkeby.infura.io/')
+      );
+      const Memorial = new remoteWeb3.eth.Contract(abi, address)
+      this.retrieveMemoryAtIndex(0, Memorial);
     },
     // The recursive function progressing through the contract memories array
     // and populating the Vue instance data with memories along the way
     retrieveMemoryAtIndex: function(index, Memorial) {
       self = this;
-      Memorial.memories(index, function (error, result) {
+      Memorial.methods.memories(index).call(function (error, result) {
         if (!error) {
           // No error means there are still other memories to come, hence we
           // can safely enter a new function recursion after having pushed the
@@ -76,7 +82,10 @@ export default {
         console.log('Memory sent to the Blockchain!');
       })
     },
-    // Helper function to get the contract js interface
+    // Helper function to get the contract js interface, using an in-browser
+    // wallet such as MetaMask - we cannot use infura here since we're making
+    // a real transaction rather than a call and hence need the user to approve
+    // the Tx before it is sent to the blockchain
     memorial() {
       const MemorialContract = web3.eth.contract(abi);
       const Memorial = MemorialContract.at(address);
