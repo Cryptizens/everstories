@@ -1,16 +1,21 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Vue2Leaflet from 'vue2-leaflet';
+import VueRouter from 'vue-router'
+import Routes from './routes'
+
+// TODO: check https://github.com/nerik/formatcoords
+// var formatcoords = require('formatcoords');
+// formatcoords(40.76,-73.984).format();
+
+Vue.use(VueRouter);
+const router = new VueRouter({
+  routes: Routes
+});
 
 window.Web3 = require('web3');
 
-Vue.component('v-map', Vue2Leaflet.Map);
-Vue.component('v-tilelayer', Vue2Leaflet.TileLayer);
-Vue.component('v-marker', Vue2Leaflet.Marker);
-Vue.component('v-popup', Vue2Leaflet.Popup);
-
-
 new Vue({
   el: '#app',
+  router,
   render: h => h(App)
 })
