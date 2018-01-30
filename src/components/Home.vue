@@ -1,7 +1,7 @@
 <template lang="pug">
     div
       h1 Everstories.city
-      h2 An experimental artistic project<br>to engrave the stories of our cities<br>forever on the Blockchain
+      h2 An experimental artistic project<br>to let any human being<br>engrave the stories of our cities<br>forever on the Blockchain
       small Handpicked memories from latest submissions
       app-memory(v-for="(memory, index) in memories" :key="memory.author + memory.lat" :lat="memory.lat" :lon="memory.lon" :timing="memory.timing" :story="memory.story" :author="memory.author")
       router-link(:to="'create'")
