@@ -2,12 +2,12 @@
     div
       h1 Everstories.city
       h2 An experimental artistic project<br>to engrave the stories of our cities<br>forever on the Blockchain
-      small Latest memories
-      app-memory(v-for="(memory, index) in memories" v-if="index < 4" :key="memory.author + memory.lat" :lat="memory.lat" :lon="memory.lon" :timing="memory.timing" :story="memory.story" :author="memory.author")
+      small Handpicked memories from latest submissions
+      app-memory(v-for="(memory, index) in memories" :key="memory.author + memory.lat" :lat="memory.lat" :lon="memory.lon" :timing="memory.timing" :story="memory.story" :author="memory.author")
       router-link(:to="'create'")
         article.notepad.clickable
           div.coordinates Write your story, too
-          div.country It's <span class="highlighted">simple</span> and <span class="highlighted">beautiful</span>. Click on this notepad
+          div.country It's simple and beautiful. Click on this notepad
 </template>
 
 <script>
@@ -21,7 +21,8 @@ export default {
   },
   data() {
     return {
-      memories: []
+      memories: [],
+      maxOnDisplay: 10
     }
   },
   methods: {
@@ -40,9 +41,11 @@ export default {
       // Get the current number of memories so we know till where we can iterate
       Memorial.methods.getMemoriesCount().call(function (error, result) {
         const MemoriesCount = result;
+        const MaxIndex = Math.min(self.maxOnDisplay, MemoriesCount);
+
         var selff = self;
         // Iterate on all the memories and insert them in the Vue instance data
-        for (var i = 0; i < MemoriesCount; i++) {
+        for (var i = 0; i < MaxIndex; i++) {
           Memorial.methods.memories(i).call(function (error, result) {
             selff.insertMemory(result);
           });
@@ -83,7 +86,7 @@ export default {
       }
       for (; i < l; i+=2) {
           var code = parseInt(hex.substr(i, 2), 16);
-          if (code === 0) continue; // this is added
+          if (code === 0) continue;
           str += String.fromCharCode(code);
       }
       return str;

@@ -5,8 +5,8 @@
       small Drag the marker on the map to the place you want to tell a story about
       #map
       div.inputs
-        input.input-narrow(name="timing" v-model="timing" placeholder="Approximate timing (e.g., Summer 1969)")
-        input.input-wide(name="story" v-model="story" placeholder="The story you want to tell")
+        input.input-narrow(name="timing" v-model="timing" placeholder="Approximate timing (e.g., Summer 1969)" maxlength="32")
+        input.input-wide(name="story" v-model="story" placeholder="The story you want to tell" maxlength="32")
         button(@click="createMemory()") Engrave memory
 </template>
 
