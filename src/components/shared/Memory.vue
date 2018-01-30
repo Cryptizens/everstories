@@ -4,7 +4,7 @@
     div.country <span class="date">{{ timing }}</span>
     p {{ story}}
     br
-    small Submitted by {{ author }} - <a v-bind:href="gMapLink">see memory on the map</a>
+    small Submitted by {{ author }} - <a v-bind:href="gMapLink" target="_blank">see memory on the map</a>
 </template>
 
 <script>
