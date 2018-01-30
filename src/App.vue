@@ -29,6 +29,7 @@ export default {
   background-image: url('./assets/watercolour.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
+  background-size: cover;
 }
 body {
   margin: 0;

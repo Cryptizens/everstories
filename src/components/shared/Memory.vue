@@ -1,10 +1,10 @@
 <template lang="pug">
   article.notepad
-    div.coordinates {{ lat }}, {{ lon }}
-    div.country {{ city }}, <span class="date">{{ timing }}</span>
+    div.coordinates {{ coordinates }}
+    div.country <span class="date">{{ timing }}</span>
     p {{ story}}
     br
-    small Submitted by {{ author }} on {{ created_at }} - see memory on the map
+    small Submitted by {{ author }} - <a v-bind:href="gMapLink">see memory on the map</a>
 </template>
 
 <script>
@@ -12,21 +12,53 @@ export default {
   props: [
     'lat',
     'lon',
-    'city',
     'timing',
     'story',
-    'author',
-    'created_at'
-  ]
+    'author'
+  ],
+  data() {
+    return {
+      city: ''
+    }
+  },
+  computed: {
+    coordinates() {
+      return this.formatCoordinates(this.lat,this.lon);
+    },
+    gMapLink() {
+      return 'https://www.google.com/maps/search/?api=1&query=' + this.lat + ',' + this.lon;
+    }
+  },
+  methods: {
+    getCity() {
+      var request = new XMLHttpRequest();
+      var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.lat + ',' + this.lon;
+
+      self = this;
+
+      request.open('GET', url, true);
+      request.onreadystatechange = function () {
+        if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+          var data = JSON.parse(request.responseText);
+          var city = data.results[2].formatted_address;
+          self.city = city;
+        }
+      }
+      request.send();
+    },
+  },
+  mounted() {
+    // this.getCity();
+  }
 }
-// https://www.google.com/maps/search/?api=1&query=36.26577,-92.54324
 </script>
 
 <style lang="scss">
 .notepad {
   background: #f6f6f6;
   box-shadow: 0 1px 4px hsla(0,0%,0%,.25);
-  margin: 50px auto;
+  margin: 10px auto;
+  margin-bottom: 50px;
   position: relative;
   max-width: 550px;
   background-image: -webkit-radial-gradient(#E8E9FB 21%, transparent 21%),

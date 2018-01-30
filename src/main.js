@@ -2,10 +2,18 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import Routes from './routes'
+var formatCoords = require('formatcoords');
 
-// TODO: check https://github.com/nerik/formatcoords
-// var formatcoords = require('formatcoords');
-// formatcoords(40.76,-73.984).format();
+Vue.mixin({
+  methods: {
+    formatCoordinates: function(latitude, longitude) {
+      return formatCoords(latitude, longitude).format({
+        latLonSeparator: ',',
+        decimalPlaces: '0'
+      });
+    }
+  }
+})
 
 Vue.use(VueRouter);
 const router = new VueRouter({
