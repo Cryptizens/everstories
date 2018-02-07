@@ -2,7 +2,8 @@
     div
       h1 Everstories.city
       h2 An experimental artistic project<br>to let any human being<br>engrave the stories of our cities<br>forever on the Blockchain
-      small Handpicked memories from latest submissions
+      p.title-links <router-link :to="'about'"><u>About</u></router-link>&nbsp;&nbsp;<router-link :to="'create'"><u>Write your story</u></router-link>
+      p Handpicked memories from latest submissions
       app-memory(v-for="(memory, index) in memories" :key="memory.author + memory.lat" :lat="memory.lat" :lon="memory.lon" :timing="memory.timing" :story="memory.story" :author="memory.author")
       router-link(:to="'create'")
         article.notepad.clickable
@@ -99,9 +100,20 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.highlighted {
-  color: #C79EF3;
+<style lang="scss" scoped>
+.title-links {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+p {
+  text-align: center;
+  font-size: 12px;
 }
 
 .clickable {

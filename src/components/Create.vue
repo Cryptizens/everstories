@@ -1,6 +1,6 @@
 <template lang="pug">
     div
-      h1 Write your own memory
+      h1 Write your own story
       h2 You need to have <a href="https://faucet.rinkeby.io/" target="_blank"><u>MetaMask</u></a> installed with a few Ethers in your wallet<br>so you can engrave this memory on the Blockchain forever.
       small Drag the marker on the map to the place you want to tell a story about
       #map
@@ -101,19 +101,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  margin-top: 5px;
-  text-align: center;
-  font-family: 'Permanent Marker';
-  font-size: 70px;
-  margin-bottom: 20px;
-}
-h2 {
-  text-align: center;
-  font-size: 20px;
-  margin-bottom: 40px;
-}
-
 #map {
   height: 300px;
 }

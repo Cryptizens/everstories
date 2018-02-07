@@ -5,6 +5,9 @@ contract Memorial {
   // Event to notify of a new memory that's been created
   event NewMemory(uint memoryId, int lat, int lon, bytes32 timing, bytes32 story, address owner);
 
+  // Populated at contract creation
+  address public curator = msg.sender;
+
   // The structure holding an individual memory and its location. We use integers
   // for the geographical coordinates. So before sending lat and lon to the
   // contract, we first need to multiply them by 10000 then cut off the decimals
@@ -22,6 +25,21 @@ contract Memorial {
   // The mapping holding the number of memories per owner, to avoid
   // spamming from too many memories per address
   mapping (address => uint) ownerMemoryCount;
+
+  // Functions modifier to grant specific privileges to the curator
+  modifier onlyByCurator {
+      require(msg.sender == curator);
+      // Now execute function body
+      _;
+  }
+
+  // Hopefully not needed, but useful still
+  function moderateMemory(uint _id) public onlyByCurator {
+    Memory storage m = memories[_id];
+    // Will be used as a flag for later retrieval from the DApp, to then
+    // choose not to display this memory
+    m.story = 'MODERATED';
+  }
 
   // Public constant function to get the count of memories, useful
   // when iterating over the array of memories;
