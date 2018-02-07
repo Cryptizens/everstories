@@ -1,7 +1,7 @@
 <template lang="pug">
     div
       h1 Write your own story
-      h2 You need to have <a href="https://faucet.rinkeby.io/" target="_blank"><u>MetaMask</u></a> installed with a few Ethers in your wallet<br>so you can engrave this memory on the Blockchain forever.
+      h2 You need to have <a href="https://faucet.rinkeby.io/" target="_blank"><u>MetaMask</u></a> installed with a few Ethers in your wallet (Rinkeby Testnet)<br>so you can engrave this memory on the Blockchain forever.
       small Drag the marker on the map to the place you want to tell a story about
       #map
       div.inputs
