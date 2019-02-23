@@ -2,7 +2,7 @@
   "name": "everstories",
   "description": "A Vue.js project",
   "version": "1.0.0",
-  "author": "thomasvds <vanderstraeten.thomas@gmail.com>",
+  "author": "thomasvds <thomas@cryptizens.io>",
   "license": "MIT",
   "private": true,
   "scripts": {
